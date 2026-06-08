@@ -1,0 +1,45 @@
+In github a folder is in submpdule then How to bring outside from a submodule
+===============================================================
+
+niran@NIRANJAN-LAP MINGW64 /c/project/TWS-Linux-GitLab/Gitlab-CICD (master)
+$ dir
+GitLab-execution-steps.txt  cicd-poc
+
+=>Just now i pushed to github, bbut after push to github, in github cicd-poc is showing submodule...
+niran@NIRANJAN-LAP MINGW64 /c/project/TWS-Linux-GitLab/Gitlab-CICD (master)
+$ git remote add origin https://github.com/ChNira2024/gitlab-cicd-demo.git      
+niran@NIRANJAN-LAP MINGW64 /c/project/TWS-Linux-GitLab/Gitlab-CICD (master)
+$ git push -u origin master
+
+=>How to bring outside that cicd-poc...follow below steps....
+niran@NIRANJAN-LAP MINGW64 /c/project/TWS-Linux-GitLab/Gitlab-CICD (master)
+$ git rm --cached cicd-poc
+rm 'cicd-poc'
+
+niran@NIRANJAN-LAP MINGW64 /c/project/TWS-Linux-GitLab/Gitlab-CICD (master)
+$ rm -rf cicd-poc/.git
+
+niran@NIRANJAN-LAP MINGW64 /c/project/TWS-Linux-GitLab/Gitlab-CICD (master)
+$ git add cicd-poc
+git commit -m "Fix: convert cicd-poc from submodule to a regular folder"
+[master a243aaa] Fix: convert cicd-poc from submodule to a regular folder
+ 5 files changed, 363 insertions(+), 1 deletion(-)
+ delete mode 160000 cicd-poc
+ create mode 100644 cicd-poc/.gitlab-ci.yml
+ create mode 100644 cicd-poc/README.md
+ create mode 100644 cicd-poc/execution-step
+ create mode 100644 cicd-poc/image.png
+
+niran@NIRANJAN-LAP MINGW64 /c/project/TWS-Linux-GitLab/Gitlab-CICD (master)
+$ git push origin master
+git: 'credential-manager-core' is not a git command. See 'git --help'.
+Enumerating objects: 7, done.
+Counting objects: 100% (7/7), done.
+Delta compression using up to 12 threads
+Compressing objects: 100% (6/6), done.
+Writing objects: 100% (6/6), 182.28 KiB | 22.78 MiB/s, done.
+Total 6 (delta 0), reused 0 (delta 0), pack-reused 0 (from 0)
+To https://github.com/ChNira2024/gitlab-cicd-demo.git
+   a670ac5..a243aaa  master -> master
+
+niran@NIRANJAN-LAP MINGW64 /c/project/TWS-Linux-GitLab/Gitlab-CICD (
