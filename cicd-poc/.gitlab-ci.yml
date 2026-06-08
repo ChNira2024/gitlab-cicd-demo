@@ -1,0 +1,65 @@
+stages:
+    - build
+    - test
+    - push
+    - deploy
+
+variables:
+    DEPLOY_ENV: "production"
+    GITLAB_USER_KEY: "this-is-my-secret-key"
+
+build_job:
+    stage: build
+    script:
+        - echo "This $CI_PROJECT_NAME is done  bu using command <docker build -t tag .>"
+    tags:
+        - my-runner        
+
+test_job:
+    stage: test
+    script:
+        - echo "This is testing of out docker build DONE BY $CI_COMMIT_AUTHOR"
+        - mkdir -p gitlablogs
+        - echo "these are my test result" > gitlablogs/cicdpoc.log
+    artifacts:
+        paths:
+            - gitlablogs/
+        expire_in: 1 week
+    tags:
+        - my-runner
+    
+
+push_job:
+    stage: push
+    script:
+        - echo "this"
+        - echo "is pushing to docker hub for $DEPLOY_ENV"
+    tags:
+        - my-runner
+
+deploy_job:
+    stage: deploy
+    script:
+        - echo "this"
+        - echo "is deploying to EC2 instance by $DOCKERHUB_USERNAME"
+        - echo "this log is from $CI_JOB_STAGE" >> gitlablogs/cicdpoc.log
+    artifacts:
+        paths:
+            - gitlablogs/
+        expire_in: 1 week
+    tags:
+        - my-runner
+
+dev_test_job:
+    stage: test
+    script:
+        - echo "tested for dev USING $GITLAB_USER_KEY"
+    tags:
+        - my-runner
+
+prod_test_job:
+    stage: test
+    script:
+        - echo "tested for USING $GITLAB_USER_KEY"
+    tags:
+        - my-runner      
